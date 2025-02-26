@@ -1,6 +1,6 @@
 # AI-Powered Query System 🤖
 
-This project implements a simple AI-based system that provides text-based query responses, topic recommendations, and keeps a log of past queries. The system uses OpenAI's GPT API, Cohere, or a custom NLP model to generate responses to user queries and recommends related topics using machine learning techniques.
+This project implements a simple AI-based system 🤖 that provides text-based query responses 💬, topic recommendations 🧠, and keeps a log 📜 of past queries. The system uses OpenAI's GPT API, Cohere, or a custom NLP model to generate responses to user queries and recommends related topics using machine learning techniques 📊.
 
 ## Table of Contents 📑
 
