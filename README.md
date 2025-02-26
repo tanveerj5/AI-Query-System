@@ -112,9 +112,10 @@ This project implements the following tasks:
     - Cohere API key (if using Cohere for NLP)
 
 4. Run the application:
-    ```bash
-    python app.py
-    ```
+  ## Table of Contents 📚
+  - [1. `main.py`](#mainpy) (No Hyperparameter Tuning, No NLTK) 🛠️
+  - [2. `moreOptimized.py`](#moreoptimizedpy) (Hyperparameter Tuning, No NLTK) ⚙️
+  - [3. `cleanWordOptimized.py`](#cleanwordoptimizedpy) (Hyperparameter Tuning, With NLTK) 🔧
 
     The server will be running at `http://127.0.0.1:8000`.
 
