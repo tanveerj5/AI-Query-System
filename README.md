@@ -116,7 +116,7 @@ This project implements the following tasks:
     python app.py
     ```
 
-    The server will be running at `http://127.0.0.1:5000`.
+    The server will be running at `http://127.0.0.1:8000`.
 
 ## Usage 🖥️
 
@@ -126,4 +126,4 @@ This project implements the following tasks:
 
 Example cURL command to submit a query:
 ```bash
-curl -X POST http://127.0.0.1:5000/query -H "Content-Type: application/json" -d '{"query": "What is AI?"}'
+curl -X POST http://127.0.0.1:8000/query -H "Content-Type: application/json" -d '{"query": "What is AI?"}'
