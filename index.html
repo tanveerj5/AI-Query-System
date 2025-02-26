@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Query System</title>
+    <!-- Bootstrap CSS from CDN -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- jQuery from CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1 class="text-center">AI Query System</h1>
+
+      <!-- Query Input Form -->
+      <div class="form-group">
+        <label for="query">Ask a Question:</label>
+        <input
+          type="text"
+          id="query"
+          class="form-control"
+          placeholder="Enter your question"
+        />
+      </div>
+      <button class="btn btn-primary" id="submitQuery">Submit Query</button>
+
+      <!-- Response Section -->
+      <h2 class="mt-4">Response:</h2>
+      <p id="response" class="alert alert-info"></p>
+
+      <!-- Suggestions Section -->
+      <button class="btn btn-secondary mt-4" id="getSuggestions">
+        Get Suggestions
+      </button>
+      <ul id="suggestions" class="mt-3"></ul>
+
+      <!-- Query History Section -->
+      <button class="btn btn-secondary mt-4" id="viewHistory">
+        View Query History
+      </button>
+      <ul id="history" class="mt-3"></ul>
+    </div>
+
+    <!-- Bootstrap JS from CDN -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // Function to handle the submission of a query
+      $("#submitQuery").on("click", function () {
+        const query = $("#query").val();
+        if (query) {
+          $.ajax({
+            url: "http://127.0.0.1:8000/query",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ query: query }),
+            success: function (response) {
+              $("#response").text(response.response);
+            },
+            error: function (error) {
+              $("#response").text("An error occurred. Please try again.");
+              console.log("Error: ", error);
+            },
+          });
+        } else {
+          alert("Please enter a query.");
+        }
+      });
+
+      // Function to get suggestions
+      $("#getSuggestions").on("click", function () {
+        $.ajax({
+          url: "http://127.0.0.1:8000/suggestions",
+          type: "GET",
+          success: function (response) {
+            $("#suggestions").empty();
+            if (response.suggestions.length > 0) {
+              response.suggestions.forEach(function (suggestion) {
+                $("#suggestions").append("<li>" + suggestion + "</li>");
+              });
+            } else {
+              $("#suggestions").append("<li>No suggestions available.</li>");
+            }
+          },
+          error: function (error) {
+            $("#suggestions").empty();
+            $("#suggestions").append("<li>An error occurred.</li>");
+            console.log("Error: ", error);
+          },
+        });
+      });
+
+      // Function to view query history
+      $("#viewHistory").on("click", function () {
+        $.ajax({
+          url: "http://127.0.0.1:8000/history",
+          type: "GET",
+          success: function (response) {
+            $("#history").empty();
+            if (response.history.length > 0) {
+              response.history.forEach(function (item) {
+                $("#history").append(
+                  "<li>" +
+                    item.query_text +
+                    " - " +
+                    new Date(item.timestamp).toLocaleString() +
+                    "</li>"
+                );
+              });
+            } else {
+              $("#history").append("<li>No query history available.</li>");
+            }
+          },
+          error: function (error) {
+            $("#history").empty();
+            $("#history").append("<li>An error occurred.</li>");
+            console.log("Error: ", error);
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
